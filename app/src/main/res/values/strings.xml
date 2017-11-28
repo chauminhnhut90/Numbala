@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Numbala</string>
+    <string name="login">Đăng nhập</string>
+    <string name="email_address">Email address</string>
+    <string name="password">Password</string>
+    <string name="forget_pw">Quên mật khẩu?</string>
+    <string name="do_not_have_account_yet">Bạn chưa có tài khoản?&#160;</string>
+    <string name="register_now">Đăng ký ngay</string>
+    <string name="copy_right">Bản quyền thuộc về&#160;</string>
+    <string name="numbala_com">Numbala.com</string>
+</resources>
