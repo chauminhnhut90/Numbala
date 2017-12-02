@@ -61,11 +61,13 @@
                 android:src="@drawable/ic_email" />
 
             <EditText
+                android:id="@+id/etEmail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_toRightOf="@+id/email"
-                android:hint="@string/email_address" />
+                android:hint="@string/email_address"
+                android:inputType="textEmailAddress" />
 
         </RelativeLayout>
 
@@ -95,11 +97,13 @@
                 android:src="@drawable/ic_pass" />
 
             <EditText
+                android:id="@+id/etPass"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_toRightOf="@+id/pass"
-                android:hint="@string/password" />
+                android:hint="@string/password"
+                android:inputType="textPassword" />
 
         </RelativeLayout>
 

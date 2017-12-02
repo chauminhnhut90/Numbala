@@ -1,4 +1,8 @@
 <resources>
+    <string name="no_internet_connection">No Internet conection</string>
+    <string name="no_data_found">No data was found</string>
+    <string name="server_not_found">Can not connect to server.Please try again.</string>
+
     <string name="app_name">Numbala</string>
     <string name="login">Đăng nhập</string>
     <string name="email_address">Email address</string>
