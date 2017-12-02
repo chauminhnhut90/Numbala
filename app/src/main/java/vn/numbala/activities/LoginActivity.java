@@ -1,6 +1,7 @@
 package vn.numbala.activities;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
@@ -29,7 +30,6 @@ public class LoginActivity extends BaseActivity {
 
     private static final int PERMISSION_READ_STATE = 1000;
     private EditText etEmail, etPass;
-    private final OkHttpClient client = new OkHttpClient();
     private String imei, ip = "";
 
     @Override
@@ -51,9 +51,23 @@ public class LoginActivity extends BaseActivity {
     private View.OnClickListener listener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            login();
+            if (check())
+                login();
         }
     };
+
+    private boolean check() {
+        if (this.imei.isEmpty()) {
+            Utils.showToast(context, "IMEI was be empty");
+            return false;
+        }
+
+        if (this.ip.isEmpty()) {
+            Utils.showToast(context, "IP Address was be empty");
+            return false;
+        }
+        return true;
+    }
 
     private void login() {
         Utils.showProgressDialog(context);
@@ -68,9 +82,9 @@ public class LoginActivity extends BaseActivity {
         s = Utils.md5(s);
         Utils.logInfo("Pass MD5 4 times: " + s);
 
-        String key = "f444a3f22ced1ea4296b1a049f17fe78";
+        String key = s;
         int typ = 1;
-        String dev = Utils.getDeviceName();
+        String dev = android.os.Build.MODEL; // Utils.getDeviceName();
 
         String url = String.format("%s?key=%s&typ=%d&imei=%s&dev=%s&ip=%s", ConfigUtils.DOMAIN_HTTP_API, key, typ, imei, dev, ip);
         try {
@@ -95,6 +109,8 @@ public class LoginActivity extends BaseActivity {
                         if (resObj != null && resObj.status) {
                             LoginResObj loginResObj = new Gson().fromJson(result, LoginResObj.class);
                             Utils.logInfo(loginResObj.toString());
+
+                            startActivity(new Intent(context, MainActivity.class));
                         }
                         Utils.showToast(context, resObj.message);
                     } else {

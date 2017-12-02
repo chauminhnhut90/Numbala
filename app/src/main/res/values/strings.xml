@@ -12,4 +12,13 @@
     <string name="register_now">Đăng ký ngay</string>
     <string name="copy_right">Bản quyền thuộc về&#160;</string>
     <string name="numbala_com">Numbala.com</string>
+
+    <string name="day">Day</string>
+    <string name="month">Month</string>
+    <string name="year">Year</string>
+    <string name="web">Web</string>
+    <string name="total">Tất cả</string>
+    <string name="success">Thành công</string>
+    <string name="waiting">Đang chờ</string>
+    <string name="total_trans">Tổng giao dịch:</string>
 </resources>

@@ -4,6 +4,8 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
+import okhttp3.OkHttpClient;
+
 /**
  * Create By: Nhut Chau(nchau@kolabs.co)
  * Time: 11/28/17 10:22 PM.
@@ -12,6 +14,7 @@ import android.support.v7.app.AppCompatActivity;
 
 public class BaseActivity extends AppCompatActivity {
 
+    protected final OkHttpClient client = new OkHttpClient();
     protected Context context;
 
     @Override

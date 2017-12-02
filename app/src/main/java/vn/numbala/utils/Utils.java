@@ -26,6 +26,7 @@ import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Collections;
 import java.util.Date;
@@ -317,5 +318,11 @@ public class Utils {
             }
         } catch (Exception ex) { } // for now eat exceptions
         return "";
+    }
+
+    public static String format(long number){
+        DecimalFormat formatter = new DecimalFormat("#,###");
+        String formatted = formatter.format(number);
+        return formatted.replace(",",".");
     }
 }

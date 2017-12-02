@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/row"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/trans_row_item_height">
+
+    <TextView
+        android:id="@+id/stt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_margin="10dp" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@+id/date"
+        android:layout_toRightOf="@+id/stt">
+
+        <TextView
+            android:id="@+id/web"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:ellipsize="end"
+            android:maxLines="1"
+
+            android:textColor="@color/colorPrimary" />
+
+        <TextView
+            android:id="@+id/id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/web"
+
+            android:textColor="@color/gray" />
+
+        <ImageView
+            android:id="@+id/imvStatus"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_below="@+id/web"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="2dp"
+            android:layout_toRightOf="@+id/id"
+            android:src="@drawable/ic_success" />
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/date"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@+id/money"
+        android:ellipsize="end"
+        android:gravity="center"
+        android:maxLength="10"
+        android:maxLines="1" />
+
+    <TextView
+        android:id="@+id/money"
+        android:layout_width="@dimen/trans_money_width"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:gravity="center"
+        android:textColor="@color/red" />
+
+</RelativeLayout>
