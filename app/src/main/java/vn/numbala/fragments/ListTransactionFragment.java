@@ -1,6 +1,7 @@
 package vn.numbala.fragments;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
@@ -23,6 +24,7 @@ import okhttp3.Callback;
 import okhttp3.Request;
 import okhttp3.Response;
 import vn.numbala.R;
+import vn.numbala.activities.DetailActivity;
 import vn.numbala.adapters.RecyclerAdapter;
 import vn.numbala.adapters.viewholder.BaseViewHolder;
 import vn.numbala.adapters.viewholder.TransactionViewHolder;
@@ -195,7 +197,8 @@ public class ListTransactionFragment extends BaseFragment {
                 viewHolder.row.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-
+                        Intent intent = new Intent(getContext(), DetailActivity.class);
+                        startActivity(intent);
                     }
                 });
             }

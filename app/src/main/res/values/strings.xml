@@ -21,4 +21,16 @@
     <string name="success">Thành công</string>
     <string name="waiting">Đang chờ</string>
     <string name="total_trans">Tổng giao dịch:</string>
+    <string name="trans_success">Giao dịch thành công</string>
+    <string name="website">- Website:</string>
+    <string name="id">- ID:</string>
+    <string name="trans_date">- Ngày GD:</string>
+    <string name="price">- Đơn giá:</string>
+    <string name="custommer_info">Thông tin khách hàng</string>
+    <string name="full_name">Họ &amp; tên:</string>
+    <string name="phone">Điện thoại:</string>
+    <string name="email">Email:</string>
+    <string name="address">Địa chỉ:</string>
+    <string name="note">Ghi chú:</string>
+    <string name="link_detail_invoice">Link chi tiết đơn hàng:</string>
 </resources>
