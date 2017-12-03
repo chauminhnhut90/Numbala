@@ -34,4 +34,5 @@
     <string name="address">Địa chỉ:</string>
     <string name="note">Ghi chú:</string>
     <string name="link_detail_invoice">Link chi tiết đơn hàng:</string>
+    <string name="fee">Phí:</string>
 </resources>

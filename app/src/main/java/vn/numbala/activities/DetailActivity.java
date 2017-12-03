@@ -2,6 +2,7 @@ package vn.numbala.activities;
 
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.text.SpannableString;
 import android.text.style.StyleSpan;
 import android.text.style.UnderlineSpan;
@@ -24,6 +25,7 @@ public class DetailActivity extends BaseActivity implements View.OnClickListener
     public static final String KEY_MODEL = "KEY_MODEL";
     private TextView tvWebsite, tvId, tvTransdate, tvPrice, tvFullName, tvPhone, tvEmail, tvLink, tvAddress, tvNote, title;
     private ImageView image;
+    private View container, textview;
     private TransactionModel model;
 
     @Override
@@ -32,6 +34,9 @@ public class DetailActivity extends BaseActivity implements View.OnClickListener
         setContentView(R.layout.activity_detail);
 
         findViewById(R.id.close).setOnClickListener(this);
+
+        container = findViewById(R.id.container);
+        textview = findViewById(R.id.textview);
 
         tvWebsite = findViewById(R.id.tvWebsite);
         tvId = findViewById(R.id.tvId);
@@ -75,12 +80,15 @@ public class DetailActivity extends BaseActivity implements View.OnClickListener
             this.tvEmail.setText(model.Customer_email);
             this.setAddress(model.Customer_add);
             this.setNote(model.Note);
-            // this.setLink(model.Web);
 
             if (model.Status_num.equals("1")) {
+                this.container.setBackgroundResource(R.drawable.drawable_bg_detail_header_fail);
+                this.textview.setBackgroundColor(ContextCompat.getColor(this, R.color.detail_header_fail));
                 this.title.setText(getString(R.string.trans_waiting));
                 this.image.setImageResource(R.drawable.ic_fail_2);
             } else {
+                this.container.setBackgroundResource(R.drawable.drawable_bg_detail_header);
+                this.textview.setBackgroundColor(ContextCompat.getColor(this, R.color.detail_header));
                 this.title.setText(getString(R.string.trans_success));
                 this.image.setImageResource(R.drawable.ic_success_2);
             }

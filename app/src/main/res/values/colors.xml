@@ -13,6 +13,7 @@
     <color name="bg_trans">#fafafa</color>
     <color name="bg_sum_trans">#e5f2ff</color>
     <color name="detail_header">#05c205</color>
+    <color name="detail_header_fail">#e80000</color>
     <color name="custommer_info_bg">#f5f5f5</color>
 
 </resources>

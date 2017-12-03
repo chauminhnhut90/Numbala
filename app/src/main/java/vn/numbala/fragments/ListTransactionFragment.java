@@ -1,7 +1,6 @@
 package vn.numbala.fragments;
 
 import android.app.Activity;
-import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -43,13 +42,14 @@ import vn.numbala.utils.Utils;
 
 public class ListTransactionFragment extends BaseFragment {
 
-    private TextView tvSum;
+    private TextView tvSum, tvFee;
     private RecyclerView recyclerView;
     private LinearLayoutManager mLayoutManager;
     private RecyclerAdapter adapter;
     private ArrayList<TransactionModel> data;
     private int index = -1;
     private long total = 0;
+    private long totalFee = 0;
 
     public void setIndex(int index) {
         this.index = index;
@@ -114,9 +114,11 @@ public class ListTransactionFragment extends BaseFragment {
 
                             data.clear();
                             total = 0;
+                            totalFee = 0;
 
                             for (TransactionModel model : listTransactionResObj.data) {
                                 total += Long.parseLong(model.Price);
+                                totalFee += (Long.parseLong(model.Price) * Long.parseLong(model.Fee)) / 100;
                                 data.add(model);
                             }
 
@@ -138,6 +140,7 @@ public class ListTransactionFragment extends BaseFragment {
 
     private void setUpView(View view) {
         tvSum = view.findViewById(R.id.sum);
+        tvFee = view.findViewById(R.id.fee);
 
         mLayoutManager = new LinearLayoutManager(getContext().getApplicationContext());
 
@@ -173,6 +176,9 @@ public class ListTransactionFragment extends BaseFragment {
 
                 long price = Long.parseLong(model.Price);
                 viewHolder.money.setText(Utils.format(price) + " đ");
+
+                int fee = Integer.parseInt(model.Fee);
+                viewHolder.fee.setText(getString(R.string.fee) + " " + Utils.format(price * fee / 100) + " đ");
 
                 if (position % 2 == 0) {
                     viewHolder.row.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.white));
@@ -225,6 +231,7 @@ public class ListTransactionFragment extends BaseFragment {
             @Override
             public void run() {
                 tvSum.setText(Utils.format(total) + " đ");
+                tvFee.setText(getString(R.string.fee) + " " + Utils.format(totalFee) + " đ");
                 adapter.notifyDataSetChanged();
             }
         });

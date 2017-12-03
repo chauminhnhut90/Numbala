@@ -12,6 +12,12 @@
         android:padding="10dp">
 
         <TextView
+            android:id="@+id/lineCenter"
+            android:layout_centerInParent="true"
+            android:layout_width="match_parent"
+            android:layout_height="1dp" />
+
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
@@ -22,10 +28,20 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
+            android:layout_above="@+id/lineCenter"
             android:textColor="@color/red"
             android:textStyle="bold"
             app:text="275.000.000 đ" />
+
+        <TextView
+            android:id="@+id/fee"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/lineCenter"
+            android:textColor="@color/gray"
+            android:textSize="12dp"
+            app:text="Phí: 25.000.000 đ" />
 
     </RelativeLayout>
 

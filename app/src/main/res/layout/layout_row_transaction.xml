@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:apps="http://schemas.android.com/tools"
     android:id="@+id/row"
     android:layout_width="match_parent"
     android:layout_height="@dimen/trans_row_item_height">
@@ -33,7 +34,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/web"
-
             android:textColor="@color/gray" />
 
         <ImageView
@@ -67,5 +67,17 @@
         android:layout_centerVertical="true"
         android:gravity="center"
         android:textColor="@color/red" />
+
+    <TextView
+        android:id="@+id/fee"
+        android:layout_width="@dimen/trans_money_width"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/money"
+        android:layout_centerVertical="true"
+        android:gravity="center"
+        apps:text="Fee: 1.000.000 đ"
+        android:textColor="@color/gray"
+        android:textSize="12dp" />
 
 </RelativeLayout>

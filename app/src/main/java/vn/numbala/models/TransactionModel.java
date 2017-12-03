@@ -16,6 +16,8 @@ public class TransactionModel implements Serializable {
     public String ID;
     @SerializedName("Web")
     public String Web;
+    @SerializedName("Fee")
+    public String Fee;
     @SerializedName("Price")
     public String Price;
     @SerializedName("Note")

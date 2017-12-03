@@ -15,7 +15,7 @@ import vn.numbala.R;
 public class TransactionViewHolder extends BaseViewHolder {
 
     public View row;
-    public TextView stt, web, id, date, money;
+    public TextView stt, web, id, date, money, fee;
     public ImageView imvStatus;
 
 
@@ -28,6 +28,7 @@ public class TransactionViewHolder extends BaseViewHolder {
         id = view.findViewById(R.id.id);
         date = view.findViewById(R.id.date);
         money = view.findViewById(R.id.money);
+        fee = view.findViewById(R.id.fee);
 
         imvStatus = view.findViewById(R.id.imvStatus);
     }
