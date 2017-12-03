@@ -30,7 +30,7 @@ public class LoginActivity extends BaseActivity {
 
     private static final int PERMISSION_READ_STATE = 1000;
     private EditText etEmail, etPass;
-    private String imei, ip = "";
+    private String imei = "", ip = "14.186.135.128";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

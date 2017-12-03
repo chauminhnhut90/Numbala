@@ -2,13 +2,15 @@ package vn.numbala.models;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
+
 /**
  * Create By: Nhut Chau(nchau@kolabs.co)
  * Time: 12/2/17 12:53 PM.
  * Project Name: Numbala
  */
 
-public class TransactionModel {
+public class TransactionModel implements Serializable {
 
     @SerializedName("ID")
     public String ID;

@@ -1,6 +1,7 @@
 package vn.numbala.fragments;
 
 import android.app.Activity;
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -161,7 +162,7 @@ public class ListTransactionFragment extends BaseFragment {
             }
 
             @Override
-            public void onBindViewHolderOutside(BaseViewHolder holder, int position) {
+            public void onBindViewHolderOutside(BaseViewHolder holder, final int position) {
                 TransactionViewHolder viewHolder = (TransactionViewHolder) holder;
                 final TransactionModel model = data.get(position);
 
@@ -198,7 +199,9 @@ public class ListTransactionFragment extends BaseFragment {
                     @Override
                     public void onClick(View view) {
                         Intent intent = new Intent(getContext(), DetailActivity.class);
+                        intent.putExtra(DetailActivity.KEY_MODEL, data.get(position));
                         startActivity(intent);
+
                     }
                 });
             }

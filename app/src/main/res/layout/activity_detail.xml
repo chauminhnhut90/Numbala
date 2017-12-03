@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:apps="http://schemas.android.com/tools">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="20dp"
+        android:layout_margin="15dp"
         android:background="@drawable/drawable_bg_detail_header">
 
         <ImageView
@@ -16,7 +17,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="20dp"
             android:layout_marginTop="20dp"
-            android:src="@drawable/ic_success_2" />
+            apps:src="@drawable/ic_success_2" />
 
         <TextView
             android:id="@+id/title"
@@ -24,32 +25,29 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/image"
             android:layout_centerHorizontal="true"
-            android:text="@string/trans_success"
+            apps:text="@string/trans_success"
             android:textAllCaps="true"
             android:textColor="@color/white" />
+
 
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@+id/title"
             android:layout_marginTop="10dp"
-            android:background="@drawable/drawble_bg_detail_footer">
+            android:background="@drawable/drawble_bg_detail_footer"
+            android:scrollbars="none">
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
                 <TextView
-                    android:layout_width="match_parent"
-                    android:background="@color/detail_header"
-                    android:layout_height="10dp" />
-
-                <TextView
                     android:id="@+id/website"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
                     android:layout_marginLeft="10dp"
+                    android:layout_marginTop="20dp"
                     android:text="@string/website" />
 
                 <TextView
@@ -65,33 +63,75 @@
                     android:id="@+id/trans_date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
                     android:layout_below="@+id/id"
+                    android:layout_marginLeft="10dp"
                     android:layout_marginTop="10dp"
                     android:text="@string/trans_date" />
 
                 <TextView
                     android:id="@+id/price"
                     android:layout_width="wrap_content"
-                    android:layout_marginLeft="10dp"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/trans_date"
                     android:layout_marginBottom="10dp"
+                    android:layout_marginLeft="10dp"
                     android:layout_marginTop="10dp"
                     android:text="@string/price" />
 
                 <TextView
-                    android:id="@+id/custommer_info"
+                    android:id="@+id/tvWebsite"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_toRightOf="@+id/website"
+                    android:text="www.numbala.vn"
+                    android:textColor="@color/colorPrimary" />
+
+                <TextView
+                    android:id="@+id/tvId"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/website"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_toRightOf="@+id/id"
+                    android:text="A45863"
+                    android:textColor="@color/colorPrimary" />
+
+                <TextView
+                    android:id="@+id/tvTransdate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/id"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:maxLength="10"
+                    android:layout_toRightOf="@+id/trans_date"
+                    android:text="22-11-2017"
+                    android:textColor="@color/colorPrimary" />
+
+                <TextView
+                    android:id="@+id/tvPrice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/trans_date"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_toRightOf="@+id/price"
+                    android:text="4.490.000 đ"
+                    android:textColor="@color/red" />
+
+                <TextView
+                    android:id="@+id/custommer_info"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/custommer_info_height"
                     android:layout_below="@+id/price"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginTop="10dp"
+                    android:layout_margin="10dp"
                     android:background="@drawable/drawable_custommer_info_bg"
                     android:gravity="center_vertical"
                     android:paddingLeft="10dp"
-                    android:layout_marginRight="10dp"
                     android:text="@string/custommer_info"
                     android:textAllCaps="true" />
 
@@ -105,6 +145,17 @@
                     android:text="@string/full_name" />
 
                 <TextView
+                    android:id="@+id/tvFullName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/custommer_info"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_toRightOf="@+id/full_name"
+                    android:text="Donal Trump"
+                    android:textStyle="bold" />
+
+                <TextView
                     android:id="@+id/phone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -112,6 +163,17 @@
                     android:layout_marginLeft="20dp"
                     android:layout_marginTop="10dp"
                     android:text="@string/phone" />
+
+                <TextView
+                    android:id="@+id/tvPhone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/full_name"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_toRightOf="@+id/phone"
+                    android:text="097 124 245"
+                    android:textColor="@color/detail_header" />
 
                 <TextView
                     android:id="@+id/email"
@@ -123,7 +185,18 @@
                     android:text="@string/email" />
 
                 <TextView
-                    android:id="@+id/address"
+                    android:id="@+id/tvEmail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/phone"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_toRightOf="@+id/email"
+                    android:text="abc@gmail.com"
+                    android:textColor="@color/colorPrimary" />
+
+                <TextView
+                    android:id="@+id/tvAddress"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/email"
@@ -132,42 +205,53 @@
                     android:text="@string/address" />
 
                 <TextView
-                    android:id="@+id/note"
+                    android:id="@+id/tvNote"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/address"
+                    android:layout_below="@+id/tvAddress"
+                    android:layout_marginBottom="20dp"
                     android:layout_marginLeft="20dp"
                     android:layout_marginTop="10dp"
-                    android:text="@string/note" />
+                    android:text="Đề cập việc một loạt cán bộ sai phạm, Bí thư Thành uỷ TP HCM cho biết rất đau lòng nhưng phải công bằng; sai thì phải kỷ luật."
+                    android:textStyle="italic" />
 
                 <TextView
                     android:id="@+id/linkTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/note"
+                    android:layout_below="@+id/tvNote"
                     android:layout_marginLeft="20dp"
                     android:layout_marginTop="10dp"
-                    android:text="@string/link_detail_invoice" />
+                    android:text="@string/link_detail_invoice"
+                    android:visibility="gone" />
 
                 <TextView
-                    android:id="@+id/link"
+                    android:id="@+id/tvLink"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/linkTitle"
                     android:layout_marginLeft="20dp"
-                    android:layout_marginTop="10dp"
-                    android:textColor="@color/colorPrimary" />
+                    android:text="www.abcxyz.com/12345ACBD"
+                    android:textColor="@color/colorPrimary"
+                    android:visibility="gone" />
 
             </RelativeLayout>
 
         </ScrollView>
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:layout_below="@+id/title"
+            android:layout_marginTop="10dp"
+            android:background="@color/detail_header" />
+
     </RelativeLayout>
 
     <ImageView
         android:id="@+id/close"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         android:layout_alignParentRight="true"
         android:src="@drawable/ic_close" />
 
