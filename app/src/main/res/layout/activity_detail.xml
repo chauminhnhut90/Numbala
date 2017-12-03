@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="15dp"
-        android:background="@drawable/drawable_bg_detail_header">
+        android:background="@drawable/bg_detail_header_success">
 
         <ImageView
             android:id="@+id/image"
@@ -36,7 +36,7 @@
             android:layout_height="match_parent"
             android:layout_below="@+id/title"
             android:layout_marginTop="10dp"
-            android:background="@drawable/drawble_bg_detail_footer"
+            android:background="@drawable/bg_detail_footer"
             android:scrollbars="none">
 
             <RelativeLayout
@@ -130,7 +130,7 @@
                     android:layout_height="@dimen/custommer_info_height"
                     android:layout_below="@+id/price"
                     android:layout_margin="10dp"
-                    android:background="@drawable/drawable_custommer_info_bg"
+                    android:background="@drawable/bg_custommer_info"
                     android:gravity="center_vertical"
                     android:paddingLeft="10dp"
                     android:text="@string/custommer_info"

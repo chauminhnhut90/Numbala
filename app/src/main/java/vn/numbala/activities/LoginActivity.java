@@ -111,6 +111,7 @@ public class LoginActivity extends BaseActivity {
                             Utils.logInfo(loginResObj.toString());
 
                             startActivity(new Intent(context, MainActivity.class));
+                            finish();
                         }
                         Utils.showToast(context, resObj.message);
                     } else {
