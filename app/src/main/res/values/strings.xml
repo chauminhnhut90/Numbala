@@ -18,8 +18,9 @@
     <string name="year">Year</string>
     <string name="web">Web</string>
     <string name="total">Tất cả</string>
-    <string name="success">Thành công</string>
-    <string name="waiting">Đang chờ</string>
+    <string name="success">Xong</string>
+    <string name="waiting">Chờ</string>
+    <string name="cancle">Huỷ</string>
     <string name="total_trans">Tổng giao dịch:</string>
     <string name="trans_success">Giao dịch thành công</string>
     <string name="trans_waiting">Giao dịch đang chờ</string>

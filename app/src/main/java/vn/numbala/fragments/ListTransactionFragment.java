@@ -187,17 +187,24 @@ public class ListTransactionFragment extends BaseFragment {
                 }
 
                 if (index == 1) {
-                    viewHolder.imvStatus.setImageResource(R.drawable.ic_success);
+                    viewHolder.imvStatus.setImageResource(R.drawable.ic_success_tab);
 
                 } else if (index == 2) {
-                    viewHolder.imvStatus.setImageResource(R.drawable.ic_fail);
+                    viewHolder.imvStatus.setImageResource(R.drawable.ic_wait_tab);
+
+                }else if (index == 3) {
+                    viewHolder.imvStatus.setImageResource(R.drawable.ic_cancle_tab);
 
                 } else {
 
                     if (model.Status_num.equals("1")) {
-                        viewHolder.imvStatus.setImageResource(R.drawable.ic_fail);
+                        viewHolder.imvStatus.setImageResource(R.drawable.ic_wait_tab);
+
+                    }else if (model.Status_num.equals("2")) {
+                        viewHolder.imvStatus.setImageResource(R.drawable.ic_success_tab);
+
                     } else {
-                        viewHolder.imvStatus.setImageResource(R.drawable.ic_success);
+                        viewHolder.imvStatus.setImageResource(R.drawable.ic_cancle_tab);
                     }
                 }
 
@@ -250,6 +257,10 @@ public class ListTransactionFragment extends BaseFragment {
 
             case 2:
                 type = 3;
+                break;
+
+            case 3:
+                type = 5;
                 break;
         }
 

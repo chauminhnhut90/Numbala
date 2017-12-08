@@ -44,7 +44,7 @@
             android:layout_marginLeft="10dp"
             android:layout_marginTop="2dp"
             android:layout_toRightOf="@+id/id"
-            android:src="@drawable/ic_success" />
+            android:src="@drawable/ic_success_tab" />
 
     </RelativeLayout>
 
