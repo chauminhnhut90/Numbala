@@ -46,6 +46,8 @@
             </intent-filter>
         </receiver>
 
+        <service android:name=".services.SMSService" />
+
     </application>
 
 </manifest>

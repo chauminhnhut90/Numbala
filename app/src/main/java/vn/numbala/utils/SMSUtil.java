@@ -2,10 +2,8 @@ package vn.numbala.utils;
 
 import android.app.Activity;
 import android.app.PendingIntent;
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.database.Cursor;
 import android.net.Uri;
 import android.telephony.SmsManager;
@@ -23,27 +21,15 @@ import vn.numbala.models.SMSData;
 
 public class SMSUtil {
 
-    public static void sendSMS(Context context, String number, String messageText) {
-
-        String sent = "SMS_SENT";
+    public static void sendSMS(Context context, String number, String message) {
+        if (number.equals("") || message.equals(""))
+            return;
 
         PendingIntent sentPI = PendingIntent.getBroadcast(context, 0,
-                new Intent(sent), 0);
-
-        context.registerReceiver(new BroadcastReceiver() {
-            @Override
-            public void onReceive(Context arg0, Intent arg1) {
-                if (getResultCode() == Activity.RESULT_OK) {
-
-                } else {
-
-                }
-            }
-        }, new IntentFilter(sent));
+                new Intent("SMS_SENT"), 0);
 
         SmsManager sms = SmsManager.getDefault();
-        sms.sendTextMessage(number, null, messageText, sentPI, null);
-
+        sms.sendTextMessage(number, null, message, sentPI, null);
     }
 
     public static void readAllSMS(Context context) {

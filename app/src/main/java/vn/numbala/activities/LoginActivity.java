@@ -18,6 +18,7 @@ import android.widget.EditText;
 import com.google.gson.Gson;
 
 import java.io.IOException;
+import java.util.Locale;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -35,7 +36,7 @@ public class LoginActivity extends BaseActivity {
 
     private static final int MY_PERMISSIONS = 1000;
     private EditText etEmail, etPass;
-    private String imei = "", ip = "14.186.135.128";
+    private String imei = "", ip = "";
     private boolean neverAskPermission = false;
 
     private String[] permissions = {Manifest.permission.READ_PHONE_STATE, Manifest.permission.RECEIVE_SMS, Manifest.permission.SEND_SMS};
@@ -54,6 +55,8 @@ public class LoginActivity extends BaseActivity {
 
         this.requestPermission();
         this.getIpAddress();
+
+        // this.test();
     }
 
     private View.OnClickListener listener = new View.OnClickListener() {

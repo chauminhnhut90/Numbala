@@ -14,7 +14,7 @@ import okhttp3.OkHttpClient;
 
 public class BaseActivity extends AppCompatActivity {
 
-    protected final OkHttpClient client = new OkHttpClient();
+    public static final OkHttpClient client = new OkHttpClient();
     protected Context context;
 
     @Override

@@ -29,26 +29,24 @@ public class MainActivity extends BaseActivity {
         tabLayout.getTabAt(1).setIcon(R.drawable.ic_success_tab);
         tabLayout.getTabAt(2).setIcon(R.drawable.ic_wait_tab);
         tabLayout.getTabAt(3).setIcon(R.drawable.ic_cancle_tab);
-
-        SMSUtil.readAllSMS(this);
     }
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
 
-        ListTransactionFragment f1 =  new ListTransactionFragment();
+        ListTransactionFragment f1 = new ListTransactionFragment();
         f1.setIndex(0);
         adapter.addFragment(f1, getString(R.string.total));
 
-        ListTransactionFragment f2 =  new ListTransactionFragment();
+        ListTransactionFragment f2 = new ListTransactionFragment();
         f2.setIndex(1);
         adapter.addFragment(f2, getString(R.string.success));
 
-        ListTransactionFragment f3 =  new ListTransactionFragment();
+        ListTransactionFragment f3 = new ListTransactionFragment();
         f3.setIndex(2);
         adapter.addFragment(f3, getString(R.string.waiting));
 
-        ListTransactionFragment f4 =  new ListTransactionFragment();
+        ListTransactionFragment f4 = new ListTransactionFragment();
         f4.setIndex(3);
         adapter.addFragment(f4, getString(R.string.cancle));
 

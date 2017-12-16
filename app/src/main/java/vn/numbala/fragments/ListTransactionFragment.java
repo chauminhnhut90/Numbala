@@ -89,7 +89,8 @@ public class ListTransactionFragment extends BaseFragment {
 
     private void getListTransaction(int type) {
 
-        Utils.showProgressDialog(getContext());
+        if (pag == 0)
+            Utils.showProgressDialog(getContext());
 
         String key = AppApplication.getInstance().key;
         int typ = type;
@@ -252,7 +253,7 @@ public class ListTransactionFragment extends BaseFragment {
                     pastVisiblesItems = mLayoutManager.findFirstVisibleItemPosition();
 
                     if (loading) {
-                        if ((visibleItemCount + pastVisiblesItems) >= totalItemCount) {
+                        if ((visibleItemCount + pastVisiblesItems) >= totalItemCount - 5) {
                             loading = false;
                             getListTransaction(getTypeByIndex(index));
                         }
