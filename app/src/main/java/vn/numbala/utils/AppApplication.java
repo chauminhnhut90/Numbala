@@ -5,7 +5,7 @@ import android.app.Application;
 
 public class AppApplication extends Application {
 
-    static AppApplication instance;
+    private static AppApplication instance;
 
     public static AppApplication getInstance() {
         if (null == instance)
@@ -19,14 +19,5 @@ public class AppApplication extends Application {
         Utils.init(this);
     }
 
-    private boolean isInternetConnnection = false;
-
-    public boolean isInternetConnnection() {
-        return isInternetConnnection;
-    }
-
-    public void setInternetConnnection(boolean internetConnnection) {
-        isInternetConnnection = internetConnnection;
-    }
-
+    public String key = "";
 }

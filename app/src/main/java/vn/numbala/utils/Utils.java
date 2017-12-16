@@ -4,15 +4,17 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Build;
-import android.provider.Settings;
-import android.telephony.TelephonyManager;
+import android.support.v4.app.ActivityCompat;
+import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -45,22 +47,6 @@ public class Utils {
     private static AtomicInteger mOpenCounter = new AtomicInteger();
 
     public static void init(Context context) {
-
-        AppApplication.getInstance().setInternetConnnection(
-                Utils.checkInternetConnection(context
-                        .getApplicationContext()));
-    }
-
-
-    public static boolean checkInternetConnection(Context context) {
-        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo netInfo = cm.getActiveNetworkInfo();
-        return (netInfo != null && netInfo.isConnected());
-    }
-
-
-    public static boolean isNetWorkAvailable() {
-        return AppApplication.getInstance().isInternetConnnection();
     }
 
     public static JSONObject buildJson(Map<String, Object> params) {
@@ -287,7 +273,7 @@ public class Utils {
         return "";
     }
 
-    public static String getDeviceName(){
+    public static String getDeviceName() {
         // android.os.Build.MODEL
         BluetoothAdapter myDevice = BluetoothAdapter.getDefaultAdapter();
         return myDevice.getName();
@@ -302,7 +288,7 @@ public class Utils {
                     if (!addr.isLoopbackAddress()) {
                         String sAddr = addr.getHostAddress();
                         //boolean isIPv4 = InetAddressUtils.isIPv4Address(sAddr);
-                        boolean isIPv4 = sAddr.indexOf(':')<0;
+                        boolean isIPv4 = sAddr.indexOf(':') < 0;
 
                         if (useIPv4) {
                             if (isIPv4)
@@ -310,19 +296,53 @@ public class Utils {
                         } else {
                             if (!isIPv4) {
                                 int delim = sAddr.indexOf('%'); // drop ip6 zone suffix
-                                return delim<0 ? sAddr.toUpperCase() : sAddr.substring(0, delim).toUpperCase();
+                                return delim < 0 ? sAddr.toUpperCase() : sAddr.substring(0, delim).toUpperCase();
                             }
                         }
                     }
                 }
             }
-        } catch (Exception ex) { } // for now eat exceptions
+        } catch (Exception ex) {
+        } // for now eat exceptions
         return "";
     }
 
-    public static String format(long number){
+    public static String format(long number) {
         DecimalFormat formatter = new DecimalFormat("#,###");
         String formatted = formatter.format(number);
-        return formatted.replace(",",".");
+        return formatted.replace(",", ".");
+    }
+
+
+    public static boolean hasPermissions(Context context, String... permissions) {
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && context != null && permissions != null) {
+            for (String permission : permissions) {
+                if (ActivityCompat.checkSelfPermission(context, permission) != PackageManager.PERMISSION_GRANTED) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    public static boolean shouldShowRequestPermissionRationale(Context context, String... permissions) {
+        Activity activity = (Activity) context;
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && context != null && permissions != null) {
+            for (String permission : permissions) {
+                if (!activity.shouldShowRequestPermissionRationale(permission)) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    public static void showMessageOKCancel(Context context, String message, DialogInterface.OnClickListener okListener) {
+        new AlertDialog.Builder(context)
+                .setMessage(message)
+                .setPositiveButton("OK", okListener)
+                .setNegativeButton("Cancel", null)
+                .create()
+                .show();
     }
 }

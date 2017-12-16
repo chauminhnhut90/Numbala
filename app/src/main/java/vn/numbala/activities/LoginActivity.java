@@ -1,11 +1,16 @@
 package vn.numbala.activities;
 
 import android.Manifest;
+import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.telephony.TelephonyManager;
 import android.view.View;
 import android.widget.EditText;
@@ -16,21 +21,24 @@ import java.io.IOException;
 
 import okhttp3.Call;
 import okhttp3.Callback;
-import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 import vn.numbala.R;
 import vn.numbala.models.JsonIpModel;
 import vn.numbala.models.resObj.LoginResObj;
 import vn.numbala.models.resObj.SVResObj;
+import vn.numbala.utils.AppApplication;
 import vn.numbala.utils.ConfigUtils;
 import vn.numbala.utils.Utils;
 
 public class LoginActivity extends BaseActivity {
 
-    private static final int PERMISSION_READ_STATE = 1000;
+    private static final int MY_PERMISSIONS = 1000;
     private EditText etEmail, etPass;
     private String imei = "", ip = "14.186.135.128";
+    private boolean neverAskPermission = false;
+
+    private String[] permissions = {Manifest.permission.READ_PHONE_STATE, Manifest.permission.RECEIVE_SMS, Manifest.permission.SEND_SMS};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,12 +59,22 @@ public class LoginActivity extends BaseActivity {
     private View.OnClickListener listener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            if (check())
-                login();
+            if (Utils.hasPermissions(context, permissions)) {
+                if (check())
+                    login();
+            } else {
+                requestPermission();
+            }
         }
     };
 
     private boolean check() {
+        if (this.etEmail.getText().toString().isEmpty() || this.etPass.getText().toString().isEmpty()) {
+            Utils.showToast(context, "Email or Password is empty ");
+            return false;
+        }
+
+        this.getIMEI();
         if (this.imei.isEmpty()) {
             Utils.showToast(context, "IMEI was be empty");
             return false;
@@ -82,7 +100,7 @@ public class LoginActivity extends BaseActivity {
         s = Utils.md5(s);
         Utils.logInfo("Pass MD5 4 times: " + s);
 
-        String key = s;
+        final String key = s;
         int typ = 1;
         String dev = android.os.Build.MODEL; // Utils.getDeviceName();
 
@@ -107,6 +125,9 @@ public class LoginActivity extends BaseActivity {
                         String result = response.body().string().replace("(", "").replace(")", "");
                         SVResObj resObj = new Gson().fromJson(result, SVResObj.class);
                         if (resObj != null && resObj.status) {
+                            // Cache KEY
+                            AppApplication.getInstance().key = key;
+
                             LoginResObj loginResObj = new Gson().fromJson(result, LoginResObj.class);
                             Utils.logInfo(loginResObj.toString());
 
@@ -127,18 +148,22 @@ public class LoginActivity extends BaseActivity {
     }
 
     private void requestPermission() {
-        if (ContextCompat.checkSelfPermission(context, Manifest.permission.READ_PHONE_STATE)
-                != PackageManager.PERMISSION_GRANTED) {
-
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_PHONE_STATE}, PERMISSION_READ_STATE);
-        } else {
-
-            TelephonyManager tm = (TelephonyManager)
-                    getSystemService(this.TELEPHONY_SERVICE);
-            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-                this.imei = tm.getMeid();
-            } else {
-                this.imei = tm.getDeviceId();
+        if (Build.VERSION.SDK_INT >= 23 && this.permissions.length != 0) {
+            if (!Utils.hasPermissions(context, permissions)) {
+                if (!neverAskPermission)
+                    ActivityCompat.requestPermissions((Activity) context, permissions, MY_PERMISSIONS);
+                else {
+                    Utils.showMessageOKCancel(context, "Go to Setting and turn all permissions on first", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            Intent intent = new Intent();
+                            intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                            Uri uri = Uri.fromParts("package", getPackageName(), null);
+                            intent.setData(uri);
+                            startActivity(intent);
+                        }
+                    });
+                }
             }
         }
     }
@@ -147,14 +172,29 @@ public class LoginActivity extends BaseActivity {
     public void onRequestPermissionsResult(int requestCode,
                                            String permissions[], int[] grantResults) {
         switch (requestCode) {
-            case PERMISSION_READ_STATE: {
-                if (grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    this.requestPermission();
-                } else {
-                    Utils.showToast(context, "Phone permission was be deny");
+            case MY_PERMISSIONS: {
+                if (grantResults.length > 0) {
+
+                    boolean a = grantResults[0] == PackageManager.PERMISSION_GRANTED;
+                    boolean b = grantResults[1] == PackageManager.PERMISSION_GRANTED;
+                    boolean c = grantResults[2] == PackageManager.PERMISSION_GRANTED;
+
+                    if (a && b && c) {
+                        Utils.showToast(context, "All permissions has been granted");
+                    } else {
+                        if (Utils.shouldShowRequestPermissionRationale(context, permissions)) {
+                            Utils.showMessageOKCancel(context, "Numbala need to access Phone call and SMS message", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    requestPermission();
+                                }
+                            });
+                        } else {
+                            // Handle Never Ask Again
+                            neverAskPermission = true;
+                        }
+                    }
                 }
-                return;
             }
         }
     }
@@ -188,6 +228,16 @@ public class LoginActivity extends BaseActivity {
             });
         } catch (Exception ex) {
             ex.printStackTrace();
+        }
+    }
+
+    private void getIMEI() throws SecurityException {
+        TelephonyManager tm = (TelephonyManager)
+                getSystemService(this.TELEPHONY_SERVICE);
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            this.imei = tm.getMeid();
+        } else {
+            this.imei = tm.getDeviceId();
         }
     }
 }

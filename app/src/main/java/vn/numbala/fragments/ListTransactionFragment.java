@@ -31,6 +31,7 @@ import vn.numbala.adapters.viewholder.TransactionViewHolder;
 import vn.numbala.models.TransactionModel;
 import vn.numbala.models.resObj.ListTransactionResObj;
 import vn.numbala.models.resObj.SVResObj;
+import vn.numbala.utils.AppApplication;
 import vn.numbala.utils.ConfigUtils;
 import vn.numbala.utils.Utils;
 
@@ -50,6 +51,10 @@ public class ListTransactionFragment extends BaseFragment {
     private int index = -1;
     private long total = 0;
     private long totalFee = 0;
+
+    private int pag = 0;
+    private boolean loading = true;
+    int pastVisiblesItems, visibleItemCount, totalItemCount;
 
     public void setIndex(int index) {
         this.index = index;
@@ -83,13 +88,14 @@ public class ListTransactionFragment extends BaseFragment {
     }
 
     private void getListTransaction(int type) {
+
         Utils.showProgressDialog(getContext());
 
-        String key = "b8dee4d6e3dc67e99dc19a1b1785958d";
+        String key = AppApplication.getInstance().key;
         int typ = type;
-        int pag = 1;
 
-        String url = String.format("%s?key=%s&typ=%d&pag=%d", ConfigUtils.DOMAIN_HTTP_API, key, typ, pag);
+        String url = String.format("%s?key=%s&typ=%d&pag=%d", ConfigUtils.DOMAIN_HTTP_API, key, typ, ++pag);
+        Utils.logInfo(url);
         try {
 
             Request request = new Request.Builder()
@@ -100,6 +106,7 @@ public class ListTransactionFragment extends BaseFragment {
             client.newCall(request).enqueue(new Callback() {
                 @Override
                 public void onFailure(Call call, IOException e) {
+                    loading = true;
                     Utils.closeProgressDialog();
                     e.printStackTrace();
                 }
@@ -112,15 +119,13 @@ public class ListTransactionFragment extends BaseFragment {
                         if (resObj != null && resObj.status) {
                             ListTransactionResObj listTransactionResObj = new Gson().fromJson(result, ListTransactionResObj.class);
 
-                            data.clear();
-                            total = 0;
-                            totalFee = 0;
-
                             for (TransactionModel model : listTransactionResObj.data) {
                                 total += Long.parseLong(model.Price);
                                 totalFee += (Long.parseLong(model.Price) * Long.parseLong(model.Fee)) / 100;
                                 data.add(model);
                             }
+
+                            data.addAll(listTransactionResObj.data);
 
                             updateUI();
                         } else {
@@ -129,10 +134,13 @@ public class ListTransactionFragment extends BaseFragment {
                     } else {
                         Utils.showToast(getContext(), "Something wrong...!!!");
                     }
+
+                    loading = true;
                     Utils.closeProgressDialog();
                 }
             });
         } catch (Exception ex) {
+            loading = true;
             Utils.closeProgressDialog();
             ex.printStackTrace();
         }
@@ -151,6 +159,7 @@ public class ListTransactionFragment extends BaseFragment {
         recyclerView.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.white));
 
         addDivider();
+        addOnScrollListener();
     }
 
     private void initAdapter() {
@@ -192,7 +201,7 @@ public class ListTransactionFragment extends BaseFragment {
                 } else if (index == 2) {
                     viewHolder.imvStatus.setImageResource(R.drawable.ic_wait_tab);
 
-                }else if (index == 3) {
+                } else if (index == 3) {
                     viewHolder.imvStatus.setImageResource(R.drawable.ic_cancle_tab);
 
                 } else {
@@ -200,7 +209,7 @@ public class ListTransactionFragment extends BaseFragment {
                     if (model.Status_num.equals("1")) {
                         viewHolder.imvStatus.setImageResource(R.drawable.ic_wait_tab);
 
-                    }else if (model.Status_num.equals("2")) {
+                    } else if (model.Status_num.equals("2")) {
                         viewHolder.imvStatus.setImageResource(R.drawable.ic_success_tab);
 
                     } else {
@@ -231,6 +240,26 @@ public class ListTransactionFragment extends BaseFragment {
     private void addDivider() {
         RecyclerView.ItemDecoration dividerItemDecoration = new DividerItemDecoration(getContext(), LinearLayoutManager.VERTICAL);
         recyclerView.addItemDecoration(dividerItemDecoration);
+    }
+
+    private void addOnScrollListener() {
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                if (dy > 0) {
+                    visibleItemCount = mLayoutManager.getChildCount();
+                    totalItemCount = mLayoutManager.getItemCount();
+                    pastVisiblesItems = mLayoutManager.findFirstVisibleItemPosition();
+
+                    if (loading) {
+                        if ((visibleItemCount + pastVisiblesItems) >= totalItemCount) {
+                            loading = false;
+                            getListTransaction(getTypeByIndex(index));
+                        }
+                    }
+                }
+            }
+        });
     }
 
     private void updateUI() {

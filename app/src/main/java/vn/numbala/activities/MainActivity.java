@@ -7,6 +7,7 @@ import android.support.v4.view.ViewPager;
 import vn.numbala.R;
 import vn.numbala.adapters.ViewPagerAdapter;
 import vn.numbala.fragments.ListTransactionFragment;
+import vn.numbala.utils.SMSUtil;
 
 public class MainActivity extends BaseActivity {
 
@@ -28,6 +29,8 @@ public class MainActivity extends BaseActivity {
         tabLayout.getTabAt(1).setIcon(R.drawable.ic_success_tab);
         tabLayout.getTabAt(2).setIcon(R.drawable.ic_wait_tab);
         tabLayout.getTabAt(3).setIcon(R.drawable.ic_cancle_tab);
+
+        SMSUtil.readAllSMS(this);
     }
 
     private void setupViewPager(ViewPager viewPager) {
