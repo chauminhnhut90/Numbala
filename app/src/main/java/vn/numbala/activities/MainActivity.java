@@ -3,16 +3,23 @@ package vn.numbala.activities;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import vn.numbala.R;
 import vn.numbala.adapters.ViewPagerAdapter;
 import vn.numbala.fragments.ListTransactionFragment;
+import vn.numbala.utils.AppApplication;
+import vn.numbala.utils.ImageUtils;
 import vn.numbala.utils.SMSUtil;
 
 public class MainActivity extends BaseActivity {
 
     private TabLayout tabLayout;
     private ViewPager viewPager;
+
+    private TextView tvUserName;
+    private ImageView avatar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +36,15 @@ public class MainActivity extends BaseActivity {
         tabLayout.getTabAt(1).setIcon(R.drawable.ic_success_tab);
         tabLayout.getTabAt(2).setIcon(R.drawable.ic_wait_tab);
         tabLayout.getTabAt(3).setIcon(R.drawable.ic_cancle_tab);
+
+        tvUserName = findViewById(R.id.tvUserName);
+        avatar = findViewById(R.id.avatar);
+
+        AppApplication application = AppApplication.getInstance();
+        tvUserName.setText(application.loginModel.Name);
+
+        int size = (int) getResources().getDimension(R.dimen.avatar_size);
+        ImageUtils.loadCircle(this, avatar, application.loginModel.Avatar, size, size);
     }
 
     private void setupViewPager(ViewPager viewPager) {

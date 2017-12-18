@@ -128,11 +128,11 @@ public class LoginActivity extends BaseActivity {
                         String result = response.body().string().replace("(", "").replace(")", "");
                         SVResObj resObj = new Gson().fromJson(result, SVResObj.class);
                         if (resObj != null && resObj.status) {
+                            LoginResObj loginResObj = new Gson().fromJson(result, LoginResObj.class);
+
                             // Cache KEY
                             AppApplication.getInstance().key = key;
-
-                            LoginResObj loginResObj = new Gson().fromJson(result, LoginResObj.class);
-                            Utils.logInfo(loginResObj.toString());
+                            AppApplication.getInstance().loginModel = loginResObj.data;
 
                             startActivity(new Intent(context, MainActivity.class));
                             finish();

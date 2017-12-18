@@ -2,6 +2,8 @@ package vn.numbala.utils;
 
 import android.app.Application;
 
+import vn.numbala.models.LoginModel;
+
 
 public class AppApplication extends Application {
 
@@ -20,4 +22,5 @@ public class AppApplication extends Application {
     }
 
     public String key = "";
+    public LoginModel loginModel;
 }

@@ -38,10 +38,10 @@ public class SMSService extends IntentService {
         if (b != null) {
             int reqCode = b.getInt(SMSReceiver.REQ_CODE);
             if (reqCode == 1000) {
-                // String id = b.getString(SMSReceiver.ID);
-                // callAPIUpdate(id);
+                 String id = b.getString(SMSReceiver.ID);
+                 callAPIUpdate(id);
 
-                SMSUtil.sendSMS(getApplicationContext(), "01637958812", "Thks for being our friends");
+                // SMSUtil.sendSMS(getApplicationContext(), "01637958812", "Thks for being our friends");
             }
         }
     }
@@ -73,8 +73,8 @@ public class SMSService extends IntentService {
                         if (resObj != null && resObj.status) {
                             UpdateStatusResObj model = (UpdateStatusResObj) resObj;
 
-                            String phone = model.data.userInfo.customerPhone;
-                            String message = model.data.userInfo.customerMessage;
+                            String phone = model.data.customerPhone;
+                            String message = model.data.customerMessage;
 
                             SMSUtil.sendSMS(getApplicationContext(), phone, message);
                         }

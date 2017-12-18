@@ -9,20 +9,14 @@ import com.google.gson.annotations.SerializedName;
  */
 
 public class UpdateStatusModel {
-
     @SerializedName("Status_num")
     public int statusNum;
     @SerializedName("Status_text")
     public String statusText;
-    @SerializedName("User_Info")
-    public UserInfo userInfo;
-
-    public static class UserInfo {
-        @SerializedName("Customer_name")
-        public String customerName;
-        @SerializedName("Customer_phone")
-        public String customerPhone;
-        @SerializedName("Customer_message")
-        public String customerMessage;
-    }
+    @SerializedName("Customer_name")
+    public String customerName;
+    @SerializedName("Customer_phone")
+    public String customerPhone;
+    @SerializedName("Customer_message")
+    public String customerMessage;
 }
