@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/month_1"
+        android:title="@string/month_1" />
+
+    <item
+        android:id="@+id/month_2"
+        android:title="@string/month_2" />
+
+    <item
+        android:id="@+id/month_3"
+        android:title="@string/month_3" />
+
+    <item
+        android:id="@+id/month_4"
+        android:title="@string/month_4" />
+
+    <item
+        android:id="@+id/month_5"
+        android:title="@string/month_5" />
+
+    <item
+        android:id="@+id/month_6"
+        android:title="@string/month_6" />
+
+    <item
+        android:id="@+id/month_7"
+        android:title="@string/month_7" />
+
+    <item
+        android:id="@+id/month_8"
+        android:title="@string/month_8" />
+
+    <item
+        android:id="@+id/month_9"
+        android:title="@string/month_9" />
+
+    <item
+        android:id="@+id/month_10"
+        android:title="@string/month_10" />
+
+    <item
+        android:id="@+id/month_11"
+        android:title="@string/month_11" />
+
+    <item
+        android:id="@+id/month_12"
+        android:title="@string/month_12" />
+</menu>

@@ -56,8 +56,16 @@ public class ListTransactionFragment extends BaseFragment {
     private boolean loading = true;
     int pastVisiblesItems, visibleItemCount, totalItemCount;
 
+    private int day = 0, month = 0, year = 0;
+
     public void setIndex(int index) {
         this.index = index;
+    }
+
+    public void setDMY(int day, int month, int year) {
+        this.day = day;
+        this.month = month;
+        this.year = year;
     }
 
     @Nullable
@@ -95,7 +103,12 @@ public class ListTransactionFragment extends BaseFragment {
         String key = AppApplication.getInstance().key;
         int typ = type;
 
-        String url = String.format("%s?key=%s&typ=%d&pag=%d", ConfigUtils.DOMAIN_HTTP_API, key, typ, ++pag);
+        int d = this.day;
+        int m = this.month;
+        int y = this.year;
+        String sea = "khoa";
+
+        String url = String.format("%s?key=%s&typ=%d&pag=%d&d=%d&m=%d&y=%d&sea=%s", ConfigUtils.DOMAIN_HTTP_API, key, typ, ++pag, d, m, y, sea);
         Utils.logInfo(url);
         try {
 
