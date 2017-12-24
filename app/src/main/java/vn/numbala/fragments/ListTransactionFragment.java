@@ -57,15 +57,22 @@ public class ListTransactionFragment extends BaseFragment {
     int pastVisiblesItems, visibleItemCount, totalItemCount;
 
     private int day = 0, month = 0, year = 0;
+    private String search = "";
+    private boolean flagReload = false;
 
     public void setIndex(int index) {
         this.index = index;
     }
 
-    public void setDMY(int day, int month, int year) {
+    public void setFilterInfo(int day, int month, int year, String search) {
         this.day = day;
         this.month = month;
         this.year = year;
+        this.search = search;
+    }
+
+    public void setFlagReload() {
+        this.flagReload = true;
     }
 
     @Nullable
@@ -79,7 +86,10 @@ public class ListTransactionFragment extends BaseFragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        this.loadData();
+    }
 
+    public void loadData() {
         if (data == null) {
             data = new ArrayList<>();
             initAdapter();
@@ -87,17 +97,17 @@ public class ListTransactionFragment extends BaseFragment {
 
         recyclerView.setAdapter(adapter);
 
-        if (data.size() == 0) {
+        if (data.size() == 0 || this.flagReload) {
+            this.reset();
             this.getListTransaction(getTypeByIndex(this.index));
         } else {
             updateUI();
         }
-
     }
 
     private void getListTransaction(int type) {
 
-        if (pag == 0)
+        if (data.size() == 0)
             Utils.showProgressDialog(getContext());
 
         String key = AppApplication.getInstance().key;
@@ -106,7 +116,7 @@ public class ListTransactionFragment extends BaseFragment {
         int d = this.day;
         int m = this.month;
         int y = this.year;
-        String sea = "khoa";
+        String sea = this.search;
 
         String url = String.format("%s?key=%s&typ=%d&pag=%d&d=%d&m=%d&y=%d&sea=%s", ConfigUtils.DOMAIN_HTTP_API, key, typ, ++pag, d, m, y, sea);
         Utils.logInfo(url);
@@ -308,5 +318,14 @@ public class ListTransactionFragment extends BaseFragment {
         }
 
         return type;
+    }
+
+    public void reset() {
+        data.clear();
+        total = 0;
+        totalFee = 0;
+        pag = 0;
+        loading = true;
+        flagReload = false;
     }
 }

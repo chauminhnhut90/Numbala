@@ -85,7 +85,7 @@ public class DetailActivity extends BaseActivity implements View.OnClickListener
                 this.container.setBackgroundResource(R.drawable.bg_detail_header_waiting);
                 this.textview.setBackgroundColor(ContextCompat.getColor(this, R.color.detail_header_waitting));
                 this.title.setText(getString(R.string.trans_waiting));
-                this.image.setImageResource(R.drawable.ic_fail_2);
+                this.image.setImageResource(R.drawable.ic_wait_2);
             } else if (model.Status_num.equals("2")) {
                 this.container.setBackgroundResource(R.drawable.bg_detail_header_success);
                 this.textview.setBackgroundColor(ContextCompat.getColor(this, R.color.detail_header));
@@ -95,7 +95,7 @@ public class DetailActivity extends BaseActivity implements View.OnClickListener
                 this.container.setBackgroundResource(R.drawable.bg_detail_header_fail);
                 this.textview.setBackgroundColor(ContextCompat.getColor(this, R.color.detail_header_fail));
                 this.title.setText(getString(R.string.trans_cancel));
-                this.image.setImageResource(R.drawable.ic_success_2);
+                this.image.setImageResource(R.drawable.ic_fail_2);
             }
         }
     }

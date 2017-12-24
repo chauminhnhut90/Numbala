@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/day_0"
+        android:title="@string/day_0" />
+
     <item
         android:id="@+id/day_1"
         android:title="@string/day_1" />
@@ -119,4 +124,8 @@
     <item
         android:id="@+id/day_30"
         android:title="@string/day_30" />
+
+    <item
+        android:id="@+id/day_31"
+        android:title="@string/day_31" />
 </menu>

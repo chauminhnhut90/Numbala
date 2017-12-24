@@ -11,7 +11,7 @@
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/day"
+            android:id="@+id/titleDay"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
@@ -26,7 +26,7 @@
             android:text="@string/drop_down" />
 
         <TextView
-            android:id="@+id/month"
+            android:id="@+id/titleMonth"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
@@ -41,7 +41,7 @@
             android:text="@string/drop_down" />
 
         <TextView
-            android:id="@+id/year"
+            android:id="@+id/titleYear"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
@@ -62,6 +62,7 @@
             android:background="@drawable/bg_search">
 
             <EditText
+                android:id="@+id/etSearch"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
