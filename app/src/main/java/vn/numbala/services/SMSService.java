@@ -38,8 +38,8 @@ public class SMSService extends IntentService {
         if (b != null) {
             int reqCode = b.getInt(SMSReceiver.REQ_CODE);
             if (reqCode == 1000) {
-                 String id = b.getString(SMSReceiver.ID);
-                 callAPIUpdate(id);
+                String id = b.getString(SMSReceiver.ID);
+                callAPIUpdate(id);
 
                 // SMSUtil.sendSMS(getApplicationContext(), "01637958812", "Thks for being our friends");
             }
@@ -52,7 +52,7 @@ public class SMSService extends IntentService {
         int typ = 6;
         String imei = AppApplication.getInstance().imei;
 
-        String url = String.format("%s?key=%s&typ=%d&id=%s&imei", ConfigUtils.DOMAIN_HTTP_API, key, typ, id, imei);
+        String url = String.format("%s?key=%s&typ=%d&id=%s&imei=%s", ConfigUtils.DOMAIN_HTTP_API, key, typ, id, imei);
         try {
 
             Request request = new Request.Builder()
@@ -72,7 +72,7 @@ public class SMSService extends IntentService {
                         String result = response.body().string().replace("(", "").replace(")", "");
                         SVResObj resObj = new Gson().fromJson(result, SVResObj.class);
                         if (resObj != null && resObj.status) {
-                            UpdateStatusResObj model = (UpdateStatusResObj) resObj;
+                            UpdateStatusResObj model = new Gson().fromJson(result, UpdateStatusResObj.class);
 
                             String phone = model.data.customerPhone;
                             String message = model.data.customerMessage;

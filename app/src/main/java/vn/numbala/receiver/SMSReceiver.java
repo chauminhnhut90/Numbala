@@ -24,7 +24,7 @@ public class SMSReceiver extends BroadcastReceiver {
     public static final String REQ_CODE = "REQ_CODE";
     public static final String ID = "ID";
 
-    public static final String[] BANKs = {"VIETCOMBANK", "ACB", "SACOMBANK", "VIETINBANK", "+841637958812"};
+    public static final String[] BANKs = {"VIETCOMBANK", "ACB", "SACOMBANK", "VIETINBANK", "+841637958812", "+841686689987"};
 
     @Override
     public void onReceive(Context context, Intent intent) {
