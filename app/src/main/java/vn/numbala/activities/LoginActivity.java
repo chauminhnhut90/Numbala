@@ -55,8 +55,6 @@ public class LoginActivity extends BaseActivity {
 
         this.requestPermission();
         this.getIpAddress();
-
-        // this.test();
     }
 
     private View.OnClickListener listener = new View.OnClickListener() {
@@ -131,8 +129,10 @@ public class LoginActivity extends BaseActivity {
                             LoginResObj loginResObj = new Gson().fromJson(result, LoginResObj.class);
 
                             // Cache KEY
-                            AppApplication.getInstance().key = key;
-                            AppApplication.getInstance().loginModel = loginResObj.data;
+                            AppApplication application = AppApplication.getInstance();
+                            application.key = key;
+                            application.imei = imei;
+                            application.loginModel = loginResObj.data;
 
                             startActivity(new Intent(context, MainActivity.class));
                             finish();

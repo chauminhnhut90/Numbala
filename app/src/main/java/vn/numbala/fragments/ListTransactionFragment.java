@@ -117,8 +117,9 @@ public class ListTransactionFragment extends BaseFragment {
         int m = this.month;
         int y = this.year;
         String sea = this.search;
+        String imei = AppApplication.getInstance().imei;
 
-        String url = String.format("%s?key=%s&typ=%d&pag=%d&d=%d&m=%d&y=%d&sea=%s", ConfigUtils.DOMAIN_HTTP_API, key, typ, ++pag, d, m, y, sea);
+        String url = String.format("%s?key=%s&typ=%d&pag=%d&d=%d&m=%d&y=%d&sea=%s&imei", ConfigUtils.DOMAIN_HTTP_API, key, typ, ++pag, d, m, y, sea, imei);
         Utils.logInfo(url);
         try {
 

@@ -50,8 +50,9 @@ public class SMSService extends IntentService {
 
         final String key = AppApplication.getInstance().key;
         int typ = 6;
+        String imei = AppApplication.getInstance().imei;
 
-        String url = String.format("%s?key=%s&typ=%d&id=%s", ConfigUtils.DOMAIN_HTTP_API, key, typ, id);
+        String url = String.format("%s?key=%s&typ=%d&id=%s&imei", ConfigUtils.DOMAIN_HTTP_API, key, typ, id, imei);
         try {
 
             Request request = new Request.Builder()
