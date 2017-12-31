@@ -9,8 +9,7 @@ import android.preference.PreferenceManager;
  */
 public class SharePrefUtils {
 
-    public static final String CONFIG_SUBDOMAIN_ID_CHOSE = "config_choose";
-    public static final String CONFIG_USER_LOGIN = "user_login";
+    public static final String IDs = "ids";
 
     static SharePrefUtils instance;
     private SharedPreferences preferences;

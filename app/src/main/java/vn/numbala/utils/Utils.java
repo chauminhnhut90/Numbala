@@ -102,14 +102,6 @@ public class Utils {
         }
     }
 
-    public static void showToastNoInternetConnection(Context context) {
-        showToast(context, context.getString(R.string.no_internet_connection));
-    }
-
-    public static void showToastInternetConnectionTimeout(Context context) {
-        showToast(context, context.getString(R.string.server_not_found));
-    }
-
     public static void logInfo(String message) {
         if (!TextUtils.isEmpty(message))
             Log.i("", message);
@@ -122,95 +114,6 @@ public class Utils {
     }
 
     //END
-
-    /*
-    * KEYBOARD
-    * */
-
-    public static void showKeyboard(Context context) {
-
-        InputMethodManager imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
-
-    }
-
-    public static void hideKeyboard(Context context, View view) {
-
-        InputMethodManager inputManager = (InputMethodManager)
-                context.getSystemService(Context.INPUT_METHOD_SERVICE);
-
-        inputManager.hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.RESULT_UNCHANGED_SHOWN);
-
-    }
-
-    public static void hideKeyboard(Context context) {
-
-        Activity activity = (Activity) context;
-        View view = activity.getCurrentFocus();
-        if (null != view) {
-            InputMethodManager inputMethodManager = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
-            inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
-        }
-    }
-
-    public static void setTextIntoTextView(TextView textView, String text) {
-        if (textView != null && !TextUtils.isEmpty(text)) {
-            textView.setText(text);
-        }
-    }
-
-    public static String formatDisplayDate(Date date) {
-        SimpleDateFormat format = new SimpleDateFormat(ConfigUtils.FORMAT_DISPLAY_DATE);
-        return format.format(date);
-    }
-
-    public static Intent getFBProfileIntent(Context context, String id) {
-
-        try {
-            context.getPackageManager()
-                    .getPackageInfo("com.facebook.katana", 0);
-            return new Intent(Intent.ACTION_VIEW,
-                    Uri.parse("fb://profile/" + id));
-        } catch (Exception e) {
-            return new Intent(Intent.ACTION_VIEW,
-                    Uri.parse("https://www.facebook.com/" + id));
-        }
-    }
-
-    public static Intent getFBPostIntent(Context context, String id) {
-
-        try {
-            context.getPackageManager()
-                    .getPackageInfo("com.facebook.katana", 0);
-            return new Intent(Intent.ACTION_VIEW,
-                    Uri.parse("fb://post/" + id));
-        } catch (Exception e) {
-            return new Intent(Intent.ACTION_VIEW,
-                    Uri.parse("https://www.facebook.com/" + id));
-        }
-    }
-
-    public static Intent getFBPageIntent(Context context, String id) {
-
-        try {
-            context.getPackageManager()
-                    .getPackageInfo("com.facebook.katana", 0);
-            return new Intent(Intent.ACTION_VIEW,
-                    Uri.parse("fb://page/" + id));
-        } catch (Exception e) {
-            return new Intent(Intent.ACTION_VIEW,
-                    Uri.parse("https://www.facebook.com/"));
-        }
-    }
-
-    public static void setFullscreenBg(Activity context) {
-        context.getWindow().getDecorView().setSystemUiVisibility(
-                View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            context.getWindow().setStatusBarColor(Color.TRANSPARENT);
-        }
-    }
 
     /**
      * method is used for checking valid email id format.
@@ -344,5 +247,15 @@ public class Utils {
                 .setNegativeButton("Cancel", null)
                 .create()
                 .show();
+    }
+
+    public static boolean isNetworkConnected(Context context) {
+        ConnectivityManager cm =
+                (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        boolean isConnected = activeNetwork != null && activeNetwork.isConnectedOrConnecting();
+
+        return isConnected;
     }
 }

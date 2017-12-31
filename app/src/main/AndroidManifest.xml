@@ -32,8 +32,8 @@
 
         <activity
             android:name=".activities.MainActivity"
-            android:windowSoftInputMode="stateHidden"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" />
 
         <activity
             android:name=".activities.DetailActivity"
@@ -45,9 +45,12 @@
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Transparent" />
 
-        <receiver android:name=".receiver.SMSReceiver">
+        <receiver
+            android:name=".receiver.SMSReceiver"
+            android:enabled="true">
             <intent-filter android:priority="999">
                 <action android:name="android.provider.Telephony.SMS_RECEIVED" />
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
             </intent-filter>
         </receiver>
 
