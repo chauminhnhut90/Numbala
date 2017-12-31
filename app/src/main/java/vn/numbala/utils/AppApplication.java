@@ -24,4 +24,10 @@ public class AppApplication extends Application {
     public String key = "";
     public String imei = "";
     public LoginModel loginModel;
+
+    public void reset(){
+        key = "";
+        imei = "";
+        loginModel = null;
+    }
 }

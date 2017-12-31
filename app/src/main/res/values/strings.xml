@@ -40,7 +40,7 @@
     <string name="drop_down">&#xf0dd;</string>
     <string name="personal_info">Thông tin cá nhân</string>
     <string name="create_date">Ngày tạo:</string>
-    <string name="log_out">Đăng xuất</string>
+    <string name="log_out">Thoát đăng nhập</string>
     <string name="site_description">Quý khác có thể đổi thông tin cá nhân tại website www.numbala.com</string>
 
     <string name="day_0">Ngày</string>

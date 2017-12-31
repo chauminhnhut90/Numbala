@@ -32,7 +32,6 @@
 
         <activity
             android:name=".activities.MainActivity"
-            android:launchMode="singleTask"
             android:windowSoftInputMode="stateHidden"
             android:screenOrientation="portrait" />
 
