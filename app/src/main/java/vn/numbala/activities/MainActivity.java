@@ -1,10 +1,14 @@
 package vn.numbala.activities;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
+import android.telephony.SmsMessage;
 import android.view.ContextMenu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -14,12 +18,16 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 
 import vn.numbala.R;
 import vn.numbala.adapters.ViewPagerAdapter;
 import vn.numbala.fragments.BaseFragment;
 import vn.numbala.fragments.ListTransactionFragment;
+import vn.numbala.receiver.SMSReceiver;
+import vn.numbala.services.SMSService;
 import vn.numbala.utils.AppApplication;
 import vn.numbala.utils.ImageUtils;
 
@@ -39,6 +47,8 @@ public class MainActivity extends BaseActivity {
     private String query = "";
 
     private List<BaseFragment> fragments = new ArrayList<>();
+    private BroadcastReceiver receiver;
+    private IntentFilter intentFilter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,6 +109,32 @@ public class MainActivity extends BaseActivity {
         etSearch = findViewById(R.id.etSearch);
         avatar.setOnClickListener(listener);
 
+        this.handleSMSComing();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        registerReceiver(receiver, intentFilter);
+    }
+
+    @Override
+    protected void onPause() {
+        unregisterReceiver(this.receiver);
+        super.onPause();
+    }
+
+    private void handleSMSComing() {
+        String action = getPackageName() + ".SMS_RECEIVED";
+        intentFilter = new IntentFilter(action);
+        receiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                // Click search action
+                updateAllStatus();
+                handleReloadPageAtIndex(viewPager.getCurrentItem());
+            }
+        };
     }
 
     private View.OnClickListener menuContextListener = new View.OnClickListener() {

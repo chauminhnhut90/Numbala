@@ -76,8 +76,11 @@ public class SMSService extends IntentService {
 
                             String phone = model.data.customerPhone;
                             String message = model.data.customerMessage;
-
                             SMSUtil.sendSMS(getApplicationContext(), phone, message);
+
+                            // Refresh UI
+                            Intent intent = new Intent(getPackageName() + ".SMS_RECEIVED");
+                            sendBroadcast(intent);
                         }
                     }
                 }
