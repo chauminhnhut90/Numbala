@@ -41,6 +41,11 @@
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Transparent" />
 
+        <activity
+            android:name=".activities.ProfileActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Transparent" />
+
         <receiver android:name=".receiver.SMSReceiver">
             <intent-filter android:priority="999">
                 <action android:name="android.provider.Telephony.SMS_RECEIVED" />

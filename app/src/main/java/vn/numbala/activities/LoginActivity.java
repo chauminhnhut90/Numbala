@@ -10,7 +10,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
-import android.support.v7.app.AlertDialog;
 import android.telephony.TelephonyManager;
 import android.view.View;
 import android.widget.EditText;
@@ -18,7 +17,6 @@ import android.widget.EditText;
 import com.google.gson.Gson;
 
 import java.io.IOException;
-import java.util.Locale;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -54,7 +52,7 @@ public class LoginActivity extends BaseActivity {
         findViewById(R.id.btLogin).setOnClickListener(this.listener);
 
         this.requestPermission();
-        this.getIpAddress();
+
     }
 
     private View.OnClickListener listener = new View.OnClickListener() {
@@ -62,12 +60,19 @@ public class LoginActivity extends BaseActivity {
         public void onClick(View v) {
             if (Utils.hasPermissions(context, permissions)) {
                 if (check())
-                    login();
+                    // login();
+                    getIP();
             } else {
                 requestPermission();
             }
         }
     };
+
+    private void getIP(){
+        Utils.showProgressDialog(context);
+        this.getIpAddress();
+        this.getIpAddressV2();
+    }
 
     private boolean check() {
         if (this.etEmail.getText().toString().isEmpty() || this.etPass.getText().toString().isEmpty()) {
@@ -81,15 +86,15 @@ public class LoginActivity extends BaseActivity {
             return false;
         }
 
-        if (this.ip.isEmpty()) {
-            Utils.showToast(context, "IP Address was be empty");
-            return false;
-        }
+//        if (this.ip.isEmpty()) {
+//            Utils.showToast(context, "IP Address was be empty");
+//            return false;
+//        }
         return true;
     }
 
     private void login() {
-        Utils.showProgressDialog(context);
+        // Utils.showProgressDialog(context);
 
         String email = this.etEmail.getText().toString();
         String pass = this.etPass.getText().toString();
@@ -221,11 +226,45 @@ public class LoginActivity extends BaseActivity {
                     if (response.isSuccessful()) {
                         String result = response.body().string().replace("(", "").replace(")", "");
                         JsonIpModel resObj = new Gson().fromJson(result, JsonIpModel.class);
-                        if (resObj != null) {
+                        if (resObj != null && ip.isEmpty()) {
                             ip = resObj.ip;
+                            login();
                         }
                     } else {
-                        Utils.showToast(context, "Something wrong...!!!");
+                        Utils.showToast(context, "Can not find ip address. Re-try later");
+                    }
+                }
+            });
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    private void getIpAddressV2() {
+        try {
+
+            Request request = new Request.Builder()
+                    .url("https://api.ipify.org/?format=json")
+                    .get()
+                    .build();
+
+            client.newCall(request).enqueue(new Callback() {
+                @Override
+                public void onFailure(Call call, IOException e) {
+                    e.printStackTrace();
+                }
+
+                @Override
+                public void onResponse(Call call, Response response) throws IOException {
+                    if (response.isSuccessful()) {
+                        String result = response.body().string().replace("(", "").replace(")", "");
+                        JsonIpModel resObj = new Gson().fromJson(result, JsonIpModel.class);
+                        if (resObj != null && ip.isEmpty()) {
+                            ip = resObj.ip;
+                            login();
+                        }
+                    } else {
+                        Utils.showToast(context, "Can not find ip address. Re-try later");
                     }
                 }
             });

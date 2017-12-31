@@ -1,5 +1,6 @@
 package vn.numbala.activities;
 
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -96,6 +97,8 @@ public class MainActivity extends BaseActivity {
         tvDropYear.setOnClickListener(menuContextListener);
 
         etSearch = findViewById(R.id.etSearch);
+        avatar.setOnClickListener(listener);
+
     }
 
     private View.OnClickListener menuContextListener = new View.OnClickListener() {
@@ -127,6 +130,14 @@ public class MainActivity extends BaseActivity {
                 break;
         }
     }
+
+    private View.OnClickListener listener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Intent intent = new Intent(context, ProfileActivity.class);
+            startActivity(intent);
+        }
+    };
 
     private View.OnClickListener search = new View.OnClickListener() {
         @Override

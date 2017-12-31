@@ -17,5 +17,6 @@
     <color name="detail_header_waitting">#dddddd</color>
     <color name="custommer_info_bg">#f5f5f5</color>
     <color name="tab_indicator">#f38c80</color>
+    <color name="brown_red">#910707</color>
 
 </resources>
