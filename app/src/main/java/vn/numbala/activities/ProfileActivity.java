@@ -2,6 +2,8 @@ package vn.numbala.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.SpannableString;
+import android.text.style.UnderlineSpan;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -54,6 +56,8 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
                 startActivity(intent);
             }
         });
+
+        this.underlineLogout();
     }
 
     @Override
@@ -63,6 +67,13 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
                 this.finish();
                 break;
         }
+    }
+
+    private void underlineLogout() {
+        SpannableString content = new SpannableString(getString(R.string.log_out));
+        content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
+        TextView textView = findViewById(R.id.tvLogout);
+        textView.setText(content);
     }
 
 }

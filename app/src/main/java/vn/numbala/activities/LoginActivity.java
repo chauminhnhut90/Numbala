@@ -47,8 +47,8 @@ public class LoginActivity extends BaseActivity {
         etEmail = findViewById(R.id.etEmail);
         etPass = findViewById(R.id.etPass);
 
-        etEmail.setText("khachhang@yahoo.com");
-        etPass.setText("123qwe");
+        // etEmail.setText("khachhang@yahoo.com");
+        // etPass.setText("123qwe");
         findViewById(R.id.btLogin).setOnClickListener(this.listener);
 
         this.requestPermission();
