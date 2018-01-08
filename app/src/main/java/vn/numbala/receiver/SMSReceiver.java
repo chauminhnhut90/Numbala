@@ -26,7 +26,7 @@ public class SMSReceiver extends BroadcastReceiver {
     public static final String REQ_CODE = "REQ_CODE";
     public static final String ID = "ID";
 
-    public static final String[] BANKs = {"VIETCOMBANK", "ACB", "SACOMBANK", "VIETINBANK", "+841637958812", "+841686689987"};
+    public static final String[] BANKs = {"VIETCOMBANK", "ACB", "SACOMBANK", "VIETINBANK", "+841674035635", "+841686689987"};
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -93,13 +93,15 @@ public class SMSReceiver extends BroadcastReceiver {
             List<String> list = Arrays.asList(ids.split("-"));
             for (int i = list.size() - 1; i >= 0; i--) {
                 this.send(context, list.get(i));
-                list.remove(i);
             }
+            SharePrefUtils.getInstance(context).clear();
         }
     }
 
     private void appendId(Context context, String id) {
         String ids = SharePrefUtils.getInstance(context).read(SharePrefUtils.IDs);
+        if(null == ids)
+            ids = "";
         ids += String.format("%s-", id);
         SharePrefUtils.getInstance(context).save(SharePrefUtils.IDs, ids);
     }
