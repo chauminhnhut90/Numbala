@@ -42,6 +42,7 @@ public class LoginActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.checkLogin();
         setContentView(R.layout.activity_login);
 
         etEmail = findViewById(R.id.etEmail);
@@ -68,7 +69,7 @@ public class LoginActivity extends BaseActivity {
         }
     };
 
-    private void getIP(){
+    private void getIP() {
         Utils.showProgressDialog(context);
         this.getIpAddress();
         this.getIpAddressV2();
@@ -280,6 +281,13 @@ public class LoginActivity extends BaseActivity {
             this.imei = tm.getMeid();
         } else {
             this.imei = tm.getDeviceId();
+        }
+    }
+
+    private void checkLogin(){
+        if(!AppApplication.getInstance().key.isEmpty()){
+            startActivity(new Intent(context, MainActivity.class));
+            finish();
         }
     }
 }
